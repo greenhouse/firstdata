@@ -221,6 +221,9 @@ class FirstDataTests(unittest.TestCase):
                         password=os.environ.get('password'),
                         transaction_type="33",
                         amount="10.00",
+                        transarmor_token=sale['transarmor_token'],
+                        cc_expiry=sale['cc_expiry'],
+                        credit_card_type=sale['credit_card_type'],
                         authorization_num=sale['authorization_num'],
                         transaction_tag=sale['transaction_tag'])
         defaults.update(kwargs)
