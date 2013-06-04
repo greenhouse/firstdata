@@ -1,5 +1,7 @@
 ## Unofficial FirstData G4 Python Handler
 
+[![Build Status](https://secure.travis-ci.org/stevepeak/firstdata.png)](http://travis-ci.org/stevepeak/firstdata)
+
 > I do not endource First Data. Nor will I handle support on their product(s).
 
 ## Install
