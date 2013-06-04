@@ -5,9 +5,9 @@ python:
   - "pypy"
 env:
   global:
-    - secure: "N1D0UEwFKHRChY02FwXo7TQNvT584yRy5IgNdwWG8z2I51fnszKK9sZcrKB5\ncFKe7mYK1mLw9Wrk54rvG4eD94/8GC6Va4qNrkE86pWGlN8MPmxkaeuLrW35\nGfLk2DoV+sPdysJpDuZkDwNIOmhs719Q7NWrVL94Uj+Oa/DsNyU="
-    - secure: "fnrnYX+RquXnDwQOXOylhzl7YiI2YQ2ohYmlgfvugHPg43bbitlGKgyTBUkf\n37bw3AD5P9gabX7bh2flC6RWg3Ty+feZ+8k9Fe/JyYFpX+PLCAF1bfE5DuFF\nQC4tjGnleOQiaBOLDqrjDJrU/a3OLWJwQgbsOb2c/ezUQSMs7mY="
-    - secure: "WacJbifF4dPM50P6CiITZcD1Fx6CDw8dZpV9Q180TMoyMPBEKrLsRZvlOC2z\nqSsKXrAQTBUYV7a9OcszjYbKbTD8Opn50qx2KcEjIy/6lwqhWh7hd1LNbem/\nAhzG0K4IcZbPUAYWzZmRHiWAa/vchUpT6umju7X5P9WXNsJIc2E="
-    - secure: "XkytIdHI0KTkSVY21Q+WYv4EC9824WVYF+fXKajEOqQMqsYBMkcEqb2tFjtl\nBk5El+8xkqFU414He+SHlKkE0LdFrna4ovAtVdOOdzuzPHI0xvfl4Gz2zQ2g\nfU6HKHk67DltRLPECyASzOVYXBYyprdB+dCMnEyxf+QaFKCx6O0="
+    - secure: "OUiBO80s1IU/O4z88jei+ukCx5NgAk6UG/CbvrlUaF4MWfICtB7JVv03NND1\n0hD39lIUxA/l7zuAxwnLJvfI597jE0VLWPj8cXuiwb4IOKenFH+paU0b4Wm6\nhK903WqkVkFr6ZBHZWkBKrZ73+Cpog7NVyk6ku4kJ9R12+lbdRc="
+    - secure: "RBBcQrsPM/g3JFLE7GQOngbMTRBiLpyHGmMErRe30T4FKyuZI7mUBc/P56Hj\nF50l2K9S3Fu1aIfE+ii9COiNJcNRjfXUFysqB4xVek9Qz06zNHUUd4ep1pNo\nDRqc3uAtxL1TxeGUst5Q8Ybobe/xc4/PRvxPD7CIRm/z+2LgrkU="
+    - secure: "FM3bwYaSq2Tt5qNJza/fWeN3A58cAnj4dUaM3iFHXFjivRUBZe7dTYOqfdd8\nREGOurlvtdZZGGCmLq48TFF1tKy6FXfNa9luS68TTVFvWYRdVMlBHJ8STmCo\npW74lHoYSzaF2lCMAUPI69/xzlXDG4XTlU9ofsLREs0wCReEwEE="
+    - secure: "lVbC9Y4Mo60z9cLLvwLut5b6dLkGqz+BBOaKvFRB6XMO4C0wbGVvF1478rQm\ntoZYFqTm1ydLVfe+8FGH70w0Osx5g9i/62sH1nDGmnrTl4yiH+wkz1ZngB4d\nd2Kd/n6Ve9g+Y2qCfNHJSla+CkuPhPoDwGENywZwWKhapFMZhGc="
 script:
   - python -m firstdata.tests
