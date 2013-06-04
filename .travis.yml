@@ -1,0 +1,13 @@
+language: python
+python:
+  - "2.6"
+  - "2.7"
+  - "pypy"
+env:
+  global:
+    - secure: "N1D0UEwFKHRChY02FwXo7TQNvT584yRy5IgNdwWG8z2I51fnszKK9sZcrKB5\ncFKe7mYK1mLw9Wrk54rvG4eD94/8GC6Va4qNrkE86pWGlN8MPmxkaeuLrW35\nGfLk2DoV+sPdysJpDuZkDwNIOmhs719Q7NWrVL94Uj+Oa/DsNyU="
+    - secure: "fnrnYX+RquXnDwQOXOylhzl7YiI2YQ2ohYmlgfvugHPg43bbitlGKgyTBUkf\n37bw3AD5P9gabX7bh2flC6RWg3Ty+feZ+8k9Fe/JyYFpX+PLCAF1bfE5DuFF\nQC4tjGnleOQiaBOLDqrjDJrU/a3OLWJwQgbsOb2c/ezUQSMs7mY="
+    - secure: "WacJbifF4dPM50P6CiITZcD1Fx6CDw8dZpV9Q180TMoyMPBEKrLsRZvlOC2z\nqSsKXrAQTBUYV7a9OcszjYbKbTD8Opn50qx2KcEjIy/6lwqhWh7hd1LNbem/\nAhzG0K4IcZbPUAYWzZmRHiWAa/vchUpT6umju7X5P9WXNsJIc2E="
+    - secure: "XkytIdHI0KTkSVY21Q+WYv4EC9824WVYF+fXKajEOqQMqsYBMkcEqb2tFjtl\nBk5El+8xkqFU414He+SHlKkE0LdFrna4ovAtVdOOdzuzPHI0xvfl4Gz2zQ2g\nfU6HKHk67DltRLPECyASzOVYXBYyprdB+dCMnEyxf+QaFKCx6O0="
+script:
+  - python -m firstdata.tests
