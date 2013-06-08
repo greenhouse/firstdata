@@ -1,11 +1,32 @@
-## Unofficial FirstData G4 Python Handler
-
 [![Build Status](https://secure.travis-ci.org/stevepeak/firstdata.png)](http://travis-ci.org/stevepeak/firstdata)
 
-> I do not endource First Data. Nor will I handle support on their product(s).
+## Unofficial First Data's Global Gateway e4 Python Handler
+
+> This project is not endourced by myself or First Data. Please read disclaimer before use.
 
 ## Install
 `pip install firstdata`
+
+## Usage
+```python
+import firstdata
+
+fd = firstdata.FirstData(key, secret,
+    gateway_id=gateway_id,
+    password=password,
+    transaction_type="01",
+    amount="1.00",
+    cardholder_name="Customer",
+    cc_number="41111111111111111",
+    cc_expiry="1215")
+
+result = fd.process(test=use['test'])
+
+# dict of results: result['transaction_approved'], result['authorization_num'], ....
+```
+
+## Link
+* [FirstData API Guide](https://firstdata.zendesk.com/entries/407571-First-Data-Global-Gateway-e4-Web-Service-API-Reference-Guide)
 
 ## License
 Licensed under the Apache Licence, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.html).
