@@ -6,6 +6,7 @@ import json
 import httplib
 import decimal
 import datetime
+import os
 
 version = '0.1'
 __version__ = '0.1'
@@ -39,10 +40,13 @@ class FirstData(object):
         self.key, self.secret = str(key), str(secret)
         self.arguments.update(kwargs)
 
-    def process(self, httpclient=None, callback=None, test=False):
+    def process(self, httpclient=None, callback=None, test=False, verbose=None):
         """
         Send the transaction out to First Data
         """
+        if verbose is None:
+            verbose = bool(os.environ.get('FIRSTDATA_VERBOSE', False) == 'TRUE')
+
         gge4_date = strftime("%Y-%m-%dT%H:%M:%S", gmtime()) + 'Z'
         transaction_body = json.dumps(self.arguments, default=JSONHandler)
         content_digest = sha1(transaction_body).hexdigest()
@@ -63,6 +67,12 @@ class FirstData(object):
                                            timeout=10)
             conn.request("POST", "/transaction/v12", transaction_body, headers)
             response = conn.getresponse().read()
+
+            if verbose:
+                print dict(url="https://" + (self.GATEWAY_TEST if test else self.GATEWAY_LIVE) + "/transaction/v12",
+                           transaction_body=transaction_body,
+                           headers=headers,
+                           response=response)
 
             try:
                 data = json.loads(response)
