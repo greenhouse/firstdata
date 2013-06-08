@@ -8,8 +8,8 @@ import decimal
 import datetime
 import os
 
-version = '0.1'
-__version__ = '0.1'
+version = '0.2'
+__version__ = '0.2'
 
 
 def JSONHandler(obj):
