@@ -2,7 +2,7 @@
 
 ## Unofficial First Data's Global Gateway e4 Python Handler
 
-> This project is not endourced by myself or First Data. Please read disclaimer before use.
+> This project is not endourced by myself or First Data. Please read disclaimer before use. Thanks
 
 ## Install
 `pip install firstdata`
