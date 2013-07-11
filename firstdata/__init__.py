@@ -8,8 +8,8 @@ import decimal
 import datetime
 import os
 
-version = '0.2'
-__version__ = '0.2'
+version = '0.3'
+__version__ = '0.3'
 
 
 def JSONHandler(obj):
@@ -40,7 +40,7 @@ class FirstData(object):
         self.key, self.secret = str(key), str(secret)
         self.arguments.update(kwargs)
 
-    def process(self, httpclient=None, callback=None, test=False, verbose=None):
+    def process(self, httpclient=None, callback=None, test=False, verbose=None, retry_on_bmc=1):
         """
         Send the transaction out to First Data
         """
@@ -69,13 +69,25 @@ class FirstData(object):
             response = conn.getresponse().read()
 
             if verbose:
-                print dict(url="https://" + (self.GATEWAY_TEST if test else self.GATEWAY_LIVE) + "/transaction/v12",
-                           transaction_body=transaction_body,
-                           headers=headers,
-                           response=response)
+                print json.dumps(dict(url="https://" + (self.GATEWAY_TEST if test else self.GATEWAY_LIVE) + "/transaction/v12",
+                                      transaction_body=transaction_body,
+                                      headers=headers,
+                                      response=response))
+                print response
 
-            try:
-                data = json.loads(response)
-                return data
-            except ValueError:
-                raise FirstDataError(response)
+            if type(retry_on_bmc) is int and 0 < retry_on_bmc < 4 and response == "Unauthorized Request. Bad or missing credentials.":
+                """
+                When FDs servers return "Unauthorized Request. Bad or missing credentials."
+                which happend quite often for ABSOLUTLY no reason. We will try the request again.
+                3 attempts will be made if this error occurs.
+                I have contacted their support about this issue...sometime ago.
+                """
+                if verbose:
+                    print json.dumps(dict(attempt=retry_on_bmc, source="First Data Unauthorized Request"))
+                return self.process(httpclient, callback, test, verbose, retry_on_bmc+1)
+            else:
+                try:
+                    data = json.loads(response)
+                    return data
+                except ValueError:
+                    raise FirstDataError(response)
