@@ -7,9 +7,10 @@ import httplib
 import decimal
 import datetime
 import os
+import urlparse
 
-version = '0.3'
-__version__ = '0.3'
+version = '0.4'
+__version__ = '0.4'
 
 
 def JSONHandler(obj):
@@ -87,7 +88,8 @@ class FirstData(object):
                 return self.process(httpclient, callback, test, verbose, retry_on_bmc+1)
             else:
                 try:
-                    data = json.loads(response)
-                    return data
+                    return json.loads(response)
                 except ValueError:
-                    raise FirstDataError(response)
+                    """FirstData sometimes sends back a http-args not a json argument...ugh.
+                    """
+                    return dict(urlparse.parse_qsl(response))
