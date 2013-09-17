@@ -9,8 +9,8 @@ import datetime
 import os
 import urlparse
 
-version = '0.4'
-__version__ = '0.4'
+version = '0.5'
+__version__ = '0.5'
 
 
 def JSONHandler(obj):
@@ -92,4 +92,9 @@ class FirstData(object):
                 except ValueError:
                     """FirstData sometimes sends back a http-args not a json argument...ugh.
                     """
-                    return dict(urlparse.parse_qsl(response))
+                    try:
+                        return dict(urlparse.parse_qsl(response))
+                    except Exception:
+                        """FirstData also sends back string errors.
+                        """
+                        raise FirstDataError(response)
