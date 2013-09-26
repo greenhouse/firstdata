@@ -1,7 +1,5 @@
-from setuptools import setup, find_packages
-import sys, os
-
-version = '0.5'
+from setuptools import setup
+from firstdata import version
 
 setup(name='firstdata',
       version=version,

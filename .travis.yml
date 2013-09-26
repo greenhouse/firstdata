@@ -10,4 +10,5 @@ env:
     - secure: "FM3bwYaSq2Tt5qNJza/fWeN3A58cAnj4dUaM3iFHXFjivRUBZe7dTYOqfdd8\nREGOurlvtdZZGGCmLq48TFF1tKy6FXfNa9luS68TTVFvWYRdVMlBHJ8STmCo\npW74lHoYSzaF2lCMAUPI69/xzlXDG4XTlU9ofsLREs0wCReEwEE="
     - secure: "lVbC9Y4Mo60z9cLLvwLut5b6dLkGqz+BBOaKvFRB6XMO4C0wbGVvF1478rQm\ntoZYFqTm1ydLVfe+8FGH70w0Osx5g9i/62sH1nDGmnrTl4yiH+wkz1ZngB4d\nd2Kd/n6Ve9g+Y2qCfNHJSla+CkuPhPoDwGENywZwWKhapFMZhGc="
 script:
+  - pip install tornado
   - python -m firstdata.tests

@@ -1,6 +1,29 @@
 import firstdata
 import unittest
 import os
+import tornado.httpclient
+from tornado.testing import AsyncTestCase
+
+
+class TestAsync(AsyncTestCase):
+    def test_http_fetch(self):
+        httpclient = tornado.httpclient.AsyncHTTPClient()
+        fd = firstdata.FirstData(os.environ.get('FD_KEY'), os.environ.get('FD_SECRET'),
+                                 gateway_id=os.environ.get('FD_GATEWAY_ID'),
+                                 password=os.environ.get('FD_PASSWORD'),
+                                 transaction_type="01",
+                                 cardholder_name="Daffy Duck",
+                                 amount="10.00",
+                                 cc_number="4111111111111111",
+                                 cc_expiry="1215")
+        fd.process(httpclient=httpclient, callback=self.handle_fetch, test=True)
+        self.wait()
+
+    def handle_fetch(self, response):
+        self.assertEquals(response['exact_resp_code'], "00", "Transaction had an error.")
+        self.assertEquals(response['transaction_approved'], 1, "Transaction had an error.")
+        self.assertEquals(response['transaction_error'], 0, "Transaction had an error.")
+        self.stop()
 
 
 class FirstDataTests(unittest.TestCase):
@@ -171,7 +194,6 @@ class FirstDataTests(unittest.TestCase):
         #
         # Pre-Authorization
         #
-        print "--------> Pre-Authorization"
         defaults = dict(gateway_id=os.environ.get('FD_GATEWAY_ID'),
                         password=os.environ.get('FD_PASSWORD'),
                         transaction_type="01",
@@ -186,7 +208,6 @@ class FirstDataTests(unittest.TestCase):
         #
         # Tagged Pre-Authorization Completion
         #
-        print "--------> Tagged Pre-Authorization Completion"
         defaults = dict(gateway_id=os.environ.get('FD_GATEWAY_ID'),
                         password=os.environ.get('FD_PASSWORD'),
                         transaction_type="32",
@@ -200,7 +221,6 @@ class FirstDataTests(unittest.TestCase):
         #
         # Purchase w/ TransArmor
         #
-        print "--------> Purchase w/ TransArmor"
         defaults = dict(gateway_id=os.environ.get('FD_GATEWAY_ID'),
                         password=os.environ.get('FD_PASSWORD'),
                         transaction_type="00",
@@ -216,7 +236,6 @@ class FirstDataTests(unittest.TestCase):
         #
         # Tip > 15% => Void
         #
-        print "--------> Void w/ TransArmor"
         defaults = dict(gateway_id=os.environ.get('FD_GATEWAY_ID'),
                         password=os.environ.get('FD_PASSWORD'),
                         transaction_type="33",
@@ -233,7 +252,6 @@ class FirstDataTests(unittest.TestCase):
         #
         # Pre-Authoization w/ TransArmor Token for $15.00
         #
-        print "--------> Pre-Authorization w/ TransArmor"
         defaults = dict(gateway_id=os.environ.get('FD_GATEWAY_ID'),
                         password=os.environ.get('FD_PASSWORD'),
                         transaction_type="01",
@@ -249,7 +267,6 @@ class FirstDataTests(unittest.TestCase):
         #
         # Tagged Pre-Authorization Completion w/ TransArmor
         #
-        print "--------> Tagged Pre-Authorization Completion w/ TransArmor"
         defaults = dict(gateway_id=os.environ.get('FD_GATEWAY_ID'),
                         password=os.environ.get('FD_PASSWORD'),
                         transaction_type="32",
@@ -267,7 +284,6 @@ class FirstDataTests(unittest.TestCase):
         #
         # Void a Pre-Authorization w/ TransArmor
         #
-        print "--------> Void - Pre-Authorization w/ TransArmor"
         defaults = dict(gateway_id=os.environ.get('FD_GATEWAY_ID'),
                         password=os.environ.get('FD_PASSWORD'),
                         transaction_type="13",
@@ -284,7 +300,6 @@ class FirstDataTests(unittest.TestCase):
         #
         # Purchase
         #
-        print "--------> Purchase"
         defaults = dict(gateway_id=os.environ.get('FD_GATEWAY_ID'),
                         password=os.environ.get('FD_PASSWORD'),
                         transaction_type="00",
@@ -299,7 +314,6 @@ class FirstDataTests(unittest.TestCase):
         #
         # Refund
         #
-        print "--------> Refund"
         defaults = dict(gateway_id=os.environ.get('FD_GATEWAY_ID'),
                         password=os.environ.get('FD_PASSWORD'),
                         transaction_type="04",
@@ -314,7 +328,6 @@ class FirstDataTests(unittest.TestCase):
         #
         # Tagged Refund
         #
-        print "--------> Tagged Refund"
         defaults = dict(gateway_id=os.environ.get('FD_GATEWAY_ID'),
                         password=os.environ.get('FD_PASSWORD'),
                         transaction_type="34",
@@ -328,7 +341,6 @@ class FirstDataTests(unittest.TestCase):
         #
         # Tagged Void
         #
-        print "--------> Tagged Void"
         defaults = dict(gateway_id=os.environ.get('FD_GATEWAY_ID'),
                         password=os.environ.get('FD_PASSWORD'),
                         transaction_type="33",
@@ -342,7 +354,6 @@ class FirstDataTests(unittest.TestCase):
         #
         # Refund w/ TransArmor
         #
-        print "--------> Refund w/ TransArmor"
         defaults = dict(gateway_id=os.environ.get('FD_GATEWAY_ID'),
                         password=os.environ.get('FD_PASSWORD'),
                         transaction_type="04",
