@@ -3,13 +3,13 @@ from time import gmtime, strftime
 import base64
 import hmac
 import json
-import httplib
+import requests
 import decimal
 import datetime
 import os
 import urlparse
 
-__version__ = version = VERSION = '0.6'
+__version__ = version = VERSION = '0.7'
 
 
 def JSONHandler(obj):
@@ -58,6 +58,7 @@ class FirstData(object):
         transaction_body = json.dumps(self._arguments, default=JSONHandler)
         content_digest = sha1(transaction_body).hexdigest()
         headers = {'Content-Type': "application/json",
+                   'Accept': "application/json",
                    'X-GGe4-Content-SHA1': content_digest,
                    'X-GGe4-Date': gge4_date,
                    'Authorization': 'GGE4_API ' + self._key + ':' + base64.b64encode(hmac.new(self._secret, "POST\napplication/json\n"+content_digest+"\n"+gge4_date+"\n/transaction/v12", sha1).digest())}
@@ -67,31 +68,28 @@ class FirstData(object):
             assert hasattr(callback, "__call__"), "Callback must be callable"
             self._callback = callback
             self._httpclient = httpclient
-            httpclient.fetch(("https://" + (self.GATEWAY_TEST if test else self.GATEWAY_LIVE) + "/transaction/v12"),
+            httpclient.fetch(("https://" + (self.GATEWAY_TEST if self._test else self.GATEWAY_LIVE) + "/transaction/v12"),
                              callback=self.process_repsonse,
-                             validate_cert=not test,
+                             validate_cert=not self._test,
                              method="POST",
                              body=transaction_body,
                              headers=headers)
         else:
             # Synchronous
-            conn = httplib.HTTPSConnection(self.GATEWAY_TEST if test else self.GATEWAY_LIVE,
-                                           timeout=10)
-            conn.request("POST", "/transaction/v12", transaction_body, headers)
-            response = conn.getresponse().read()
-
-            if verbose:
-                print json.dumps(dict(url="https://" + (self.GATEWAY_TEST if test else self.GATEWAY_LIVE) + "/transaction/v12",
-                                      transaction_body=transaction_body,
-                                      headers=headers,
-                                      response=response))
-                print response
-
-            return self.process_repsonse(response)
+            r = requests.post(("https://" + (self.GATEWAY_TEST if self._test else self.GATEWAY_LIVE) + "/transaction/v12"),
+                              timeout=20,
+                              verify=not self._test,
+                              data=transaction_body,
+                              headers=headers)
+            return self.process_repsonse(r)
 
     def process_repsonse(self, response):
         if self._httpclient and self._callback:
             response = response.body
+        elif isinstance(response, requests.Response):
+            response = response.text
+        if self._verbose:
+            print response
         if type(self._retry_on_bmc) is int and 0 < self._retry_on_bmc < 4 and response == "Unauthorized Request. Bad or missing credentials.":
             """When FDs servers return "Unauthorized Request. Bad or missing credentials."
             which happend quite often for ABSOLUTLY no reason. We will try the request again.
