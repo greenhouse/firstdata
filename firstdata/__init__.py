@@ -19,15 +19,6 @@ def JSONHandler(obj):
         return str(obj)
 
 
-class FirstDataError(Exception):
-    def __init__(self, msg="unknown"):
-        Exception.__init__(self)
-        self.msg = msg
-
-    def __str__(self):
-        return self.msg
-
-
 class FirstData(object):
     """
     https://firstdata.zendesk.com/entries/407571-first-data-global-gateway-e4sm-web-service-api-reference-guide
