@@ -110,16 +110,18 @@ class FirstData(object):
                     self._callback(json_response)
                 else:
                     return json_response
-            except ValueError:
+            except:
                 """FirstData sometimes sends back a http-args not a json argument...ugh.
                 """
                 try:
                     urlargs = dict(urlparse.parse_qsl(response))
+                    if len(urlargs)==0:
+                        raise ValueError("Move to text...")
                     if self._callback:
                         self._callback(urlargs)
                     else:
                         return urlargs
-                except Exception:
+                except:
                     """FirstData also sends back string errors.
                     """
                     # make my own FirstData Error
