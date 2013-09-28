@@ -5,6 +5,33 @@ import tornado.httpclient
 from tornado.testing import AsyncTestCase
 
 
+class TestAsyncSwipe(AsyncTestCase):
+    def test_http_fetch(self):
+        httpclient = tornado.httpclient.AsyncHTTPClient()
+        fd = firstdata.FirstData(os.environ.get('FD_KEY'), os.environ.get('FD_SECRET'),
+                                 cc_expiry='1215',
+                                 cc_verification_str1=None,
+                                 credit_card_type='Visa',
+                                 cc_verification_str2='',
+                                 cc_number='4111111111111111',
+                                 track1='B4111111111111111^SMITH/JOHN^15124041234567891234',
+                                 cardholder_name='Customer',
+                                 amount='10.00',
+                                 track2='4111111111111111=151224041234567891234',
+                                 transaction_type='01',
+                                 cvd_presence_ind=0,
+                                 zip_code=None,
+                                 gateway_id=os.environ.get('FD_GATEWAY_ID'),
+                                 password=os.environ.get('FD_PASSWORD'))
+        fd.process(httpclient=httpclient, callback=self.handle_fetch, test=True)
+        self.wait()
+
+    def handle_fetch(self, response):
+        self.assertEquals(response['exact_resp_code'], "00", "Transaction had an error.")
+        self.assertEquals(response['transaction_approved'], 1, "Transaction had an error.")
+        self.assertEquals(response['transaction_error'], 0, "Transaction had an error.")
+        self.stop()
+
 class TestAsync(AsyncTestCase):
     def test_http_fetch(self):
         httpclient = tornado.httpclient.AsyncHTTPClient()
@@ -24,7 +51,6 @@ class TestAsync(AsyncTestCase):
         self.assertEquals(response['transaction_approved'], 1, "Transaction had an error.")
         self.assertEquals(response['transaction_error'], 0, "Transaction had an error.")
         self.stop()
-
 
 class FirstDataTests(unittest.TestCase):
     def test_p(self):
