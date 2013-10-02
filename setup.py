@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='firstdata',
-      version='0.8',
+      version='0.9',
       description="Unofficial First Data G4 Handlers",
       long_description="",
       classifiers=["Development Status :: 5 - Production/Stable",
