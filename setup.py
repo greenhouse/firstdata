@@ -20,5 +20,5 @@ setup(name='firstdata',
       packages=['firstdata'],
       include_package_data=True,
       zip_safe=True,
-      install_requires=[i.strip() for i in open("requirements.txt").readlines()],
+      install_requires=["requests==2.0.0"],
       entry_points="")
