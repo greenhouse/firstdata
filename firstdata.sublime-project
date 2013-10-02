@@ -1,0 +1,16 @@
+{
+	"folders":
+	[
+		{
+			"path": "~/Sites/site-packages/firstdata"
+		}
+	],
+	"build_systems":
+	[
+		{
+			"name": "Run Tests",
+			"working_dir": "$project_path",
+			"cmd": ["make", "test"]
+		}
+	]
+}

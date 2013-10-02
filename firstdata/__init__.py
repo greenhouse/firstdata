@@ -9,7 +9,7 @@ import datetime
 import os
 import urlparse
 
-__version__ = version = VERSION = '0.7'
+__version__ = version = VERSION = '0.8'
 
 
 def JSONHandler(obj):
