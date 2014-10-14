@@ -1,4 +1,5 @@
 [![Build Status](https://secure.travis-ci.org/stevepeak/firstdata.png)](http://travis-ci.org/stevepeak/firstdata)
+[![codecov.io](https://codecov.io/github/stevepeak/firstdata/coverage.svg?branch=master)](https://codecov.io/github/stevepeak/firstdata?branch=master)
 
 ## Unofficial First Data's Global Gateway e4 Python Handler
 
