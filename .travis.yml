@@ -11,4 +11,6 @@ env:
     - secure: "lVbC9Y4Mo60z9cLLvwLut5b6dLkGqz+BBOaKvFRB6XMO4C0wbGVvF1478rQm\ntoZYFqTm1ydLVfe+8FGH70w0Osx5g9i/62sH1nDGmnrTl4yiH+wkz1ZngB4d\nd2Kd/n6Ve9g+Y2qCfNHJSla+CkuPhPoDwGENywZwWKhapFMZhGc="
 script:
   - pip install tornado
-  - python -m firstdata.tests
+  - coverage run -m firstdata.tests
+after_success: codecov
+install: pip install codecov
