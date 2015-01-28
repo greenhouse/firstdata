@@ -1,5 +1,7 @@
 [![Build Status](https://secure.travis-ci.org/stevepeak/firstdata.png)](http://travis-ci.org/stevepeak/firstdata)
 
+> **IMPORTANT** This project is no longer maintained by @stevepeak. If you would like ownership over this repo I will transfer it. Thanks!
+
 ## Unofficial First Data's Global Gateway e4 Python Handler
 
 > This project is not endourced by myself or First Data. Please read disclaimer before use. Thanks
